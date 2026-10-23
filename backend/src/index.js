@@ -648,7 +648,10 @@ app.delete('/api/bookmarks/:id', auth, wrap(async (req, res) => {
 }));
 
 // Start Server
-app.listen(PORT, () => {
-  console.log(`[TechPulse Backend] API running on http://localhost:${PORT}`);
-  console.log(`[TechPulse Backend] Connecting to UI at ${APP_URL}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`[TechPulse Backend] API running on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
