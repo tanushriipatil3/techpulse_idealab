@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  githubId  Int        @unique
+  login     String
+  avatar    String?
+  tokenEnc  String
+  createdAt DateTime   @default(now())
+  sessions  Session[]
+  bookmarks Bookmark[]
+}
+
+model Session {
+  id        String   @id
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+}
+
+model Bookmark {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  url       String
+  title     String
+  source    String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, url])
+}

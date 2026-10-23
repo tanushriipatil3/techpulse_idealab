@@ -1,0 +1,12 @@
+node_modules
+.env
+.next
+__pycache__
+
+.env.*
+!.env.example
+frontend/.next/
+backend/node_modules/
+frontend/node_modules/
+ai/__pycache__/
+ai/.venv/
